@@ -378,7 +378,11 @@ for index in range(1, snapshots+1):
                 f.write("{:<2} \t {:<10} \t {:<10} \t {:<10}\n".format(final_sym[i], final_X[i], final_Y[i], final_Z[i]))
         
         with open(os.path.join(cwd, f"{molecule_name}_MD", f"cmpd_{index}", "input.dat"), "a") as f:
-            f.write("\n")   
+            f.write("\n") 
+            f.write(f"{frequency} nm")
+            f.write("\n")
+            f.write("\n")
+        
         
             if basis_set == "Mixed":
                 with open(os.path.join(cwd, f"{molecule_name}_MD", f"cmpd_{index}", "input.dat"), "a") as f:
@@ -388,11 +392,9 @@ for index in range(1, snapshots+1):
                     f.write("{} - {} 0\n".format(len(solute_number)+1, len(final_number)))
                     f.write("{}\n".format(solvent_basis_set))
                     f.write("****\n")
+                    f.write("\n")
                     
         with open(os.path.join(cwd, f"{molecule_name}_MD", f"cmpd_{index}", "input.dat"), "a") as f:
-            f.write(f"{frequency} nm")
-            f.write("\n")
-            f.write("\n")
             f.write("Surface=SAS")
             f.write("\n")
             f.write("\n")
