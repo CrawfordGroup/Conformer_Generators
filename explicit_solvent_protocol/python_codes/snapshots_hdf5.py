@@ -376,23 +376,23 @@ for index in range(1, snapshots+1):
         for i in range(len(final_number)):
             with open(os.path.join(cwd, f"{molecule_name}_MD", f"cmpd_{index}", "input.dat"), "a") as f:
                 f.write("{:<2} \t {:<10} \t {:<10} \t {:<10}\n".format(final_sym[i], final_X[i], final_Y[i], final_Z[i]))
+        if spectroscopy == 'ROA':
+            with open(os.path.join(cwd, f"{molecule_name}_MD", f"cmpd_{index}", "input.dat"), "a") as f:
+                f.write("\n") 
+                f.write(f"{frequency} nm")
+                f.write("\n")
+                f.write("\n")
         
-        with open(os.path.join(cwd, f"{molecule_name}_MD", f"cmpd_{index}", "input.dat"), "a") as f:
-            f.write("\n") 
-            f.write(f"{frequency} nm")
-            f.write("\n")
-            f.write("\n")
         
-        
-            if basis_set == "Mixed":
-                with open(os.path.join(cwd, f"{molecule_name}_MD", f"cmpd_{index}", "input.dat"), "a") as f:
-                    f.write("1 - {} 0\n".format(len(solute_number)))
-                    f.write("{}\n".format(solute_basis_set))
-                    f.write("****\n")
-                    f.write("{} - {} 0\n".format(len(solute_number)+1, len(final_number)))
-                    f.write("{}\n".format(solvent_basis_set))
-                    f.write("****\n")
-                    f.write("\n")
+        if basis_set == "Mixed":
+            with open(os.path.join(cwd, f"{molecule_name}_MD", f"cmpd_{index}", "input.dat"), "a") as f:
+                f.write("1 - {} 0\n".format(len(solute_number)))
+                f.write("{}\n".format(solute_basis_set))
+                f.write("****\n")
+                f.write("{} - {} 0\n".format(len(solute_number)+1, len(final_number)))
+                f.write("{}\n".format(solvent_basis_set))
+                f.write("****\n")
+                f.write("\n")
                     
         with open(os.path.join(cwd, f"{molecule_name}_MD", f"cmpd_{index}", "input.dat"), "a") as f:
             f.write("Surface=SAS")
@@ -411,14 +411,6 @@ os.chdir(cwd)
 #     os.remove(f"cmpd_{index}")
 t2=time.time()
 print(t2-t3)
-
-
-
-
-mod_connect = np.column_stack((atom_number, connect_array))
-idx = np.isin(atom_number, final_number)
-con = mod_connect[idx][:, 1:]
-connect = np.transpose(con)
 
 
 
